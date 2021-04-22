@@ -583,7 +583,8 @@ const ( // keys
 	BtnTriggerHappy40          = 0x2e7
 )
 
-var KeyMap = map[uint16]string{
+
+var km = &map[uint16]string{
 	KeyReserved:                "Reserved",
 	KeyEsc:                     "Esc",
 	Key1:                       "1",

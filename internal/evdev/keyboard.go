@@ -49,7 +49,7 @@ func (d Device) ReadKeys() (chan KeyEvent, chan bool) {
 			}
 
 			select {
-			case stop := <-qch:
+			case <-qch:
 
 				d.Close()
 				close(ch)

@@ -24,6 +24,32 @@ func (d *Device) Close() {
 	_ = d.file.Close()
 }
 
+func GetKeyboards() []*Device {
+	res := make([]*Device, 0)
+	eventFiles := getEventPaths()
+
+	for _, path := range eventFiles {
+		file, err := openEventFile(path)
+		if err != nil {
+			continue
+		}
+
+		capMap := getCapMap(file)
+		if !isKeyboard(capMap) {
+			_ = file.Close()
+			continue
+		}
+
+		info, err := getDeviceInfo(file)
+		if err != nil {
+			continue
+		}
+
+		res = append(res, info)
+	}
+	return res
+}
+
 func (d *Device) read() []InputEvent {
 	readCount := 16
 

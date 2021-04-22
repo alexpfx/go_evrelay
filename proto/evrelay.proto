@@ -9,23 +9,11 @@ message KeyEvent{
   string keyStr = 4;
 }
 
-message Device{
-  string name = 1;
-}
-message DeviceList{
-  repeated Device devices = 1;
-}
-
 message Filter{
   repeated int32 acceptEvents = 1;
 }
 
-
-message Void{
-}
-
 service InputEvent{
-  rpc ListKeyboards (Void) returns (DeviceList);
   rpc GetEvents (Filter) returns (stream KeyEvent);
 }
 
